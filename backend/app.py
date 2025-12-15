@@ -7,6 +7,7 @@ app = Flask(__name__)
 def home():
     return "NutriTrack backend is running"
 
+
 #functia de inregistrare a unui user
 @app.route("/register", methods=["POST"])
 def register():
@@ -40,28 +41,127 @@ def register():
 
 
 #functia de logare a unui user
-@app.route("/login", methods=["POST"])
-def login():
-    #preluam informatiile 
-    name = request.json.get("name")
-    password = request.json.get("password")
+@app.route("/add_water", methods=["POST"])
+def add_water():
+    data = request.json
+    user_id = data.get("user_id")
+    water = data.get("water")  #in litri
 
     conn = get_db_connection()
-    user = conn.execute(
-        "SELECT * FROM users WHERE name = ? AND password = ?",
-        (name, password)
+    cur = conn.cursor()
+
+    #verificam daca s-au introdus date astazi
+    row = cur.execute(
+        "SELECT * FROM daily_progress WHERE user_id = ? AND date = DATE('now')",
+        (user_id,)
     ).fetchone()
+
+    #daca s-au introdus doar acutalizam apa bautaa
+    if row:
+        new_water = row["water_consumed"] + water
+        cur.execute(
+            "UPDATE daily_progress SET water_consumed = ? WHERE user_id = ? AND date = DATE('now')",
+            (new_water, user_id)
+        )
+    else:
+        #daca nu, luam goalurile generale din USERS
+        user = cur.execute(
+            "SELECT kcal_goal, water_goal, activity_goal FROM users WHERE id = ?",
+            (user_id,)
+        ).fetchone()
+
+        #si creem un nou obiect in tabela
+        cur.execute(
+            "INSERT INTO daily_progress (user_id, date, water_consumed, kcal_consumed, activity_calories, kcal_goal, water_goal, activity_goal) "
+            "VALUES (?, DATE('now'), ?, 0, 0, ?, ?, ?)",
+            (user_id, water, user["kcal_goal"], user["water_goal"], user["activity_goal"])
+        )
+
+    conn.commit()
     conn.close()
+    return jsonify({"message": "Apa introdusa cu succes"})
 
-    #daca nu exista utilizatorul in baza de date , esueaza
-    if user is None:
-        return jsonify({"error": "Email sau parola gresita!"}), 401
+#functia pentru adaugarea mesei
+@app.route("/add_meal", methods=["POST"])
+def add_meal():
+    data = request.json
+    user_id = data.get("user_id")
+    kcal = data.get("kcal")  # kcal mancate
 
-    #daca il gasim , conectarea este cu succes
-    return jsonify({
-        "message": "Logare cu succes",
-        "user_id": user["id"]
-    })
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    #verificam daca s-au introdus date azi
+    row = cur.execute(
+        "SELECT * FROM daily_progress WHERE user_id = ? AND date = DATE('now')",
+        (user_id,)
+    ).fetchone()
+
+    #daca da , doar acutalizam numarul de calorii consumate
+    if row:
+        new_kcal = row["kcal_consumed"] + kcal
+        cur.execute(
+            "UPDATE daily_progress SET kcal_consumed = ? WHERE user_id = ? AND date = DATE('now')",
+            (new_kcal, user_id)
+        )
+    else:#aca nu , luam goalurile generale din USERS
+        user = cur.execute(
+            "SELECT kcal_goal, water_goal, activity_goal FROM users WHERE id = ?",
+            (user_id,)
+        ).fetchone()
+
+        #si introducem un nou obiect in tabela 
+        cur.execute(
+            "INSERT INTO daily_progress (user_id, date, water_consumed, kcal_consumed, activity_calories, kcal_goal, water_goal, activity_goal) "
+            "VALUES (?, DATE('now'), 0, ?, 0, ?, ?, ?)",
+            (user_id, kcal, user["kcal_goal"], user["water_goal"], user["activity_goal"])
+        )
+
+    conn.commit()
+    conn.close()
+    return jsonify({"message": "Masa introdusa cu succes"})
+
+#functie adaugare de activitate
+@app.route("/add_activity", methods=["POST"])
+def add_activity():
+    data = request.json
+    user_id = data.get("user_id")
+    activity_cal = data.get("activity_cal")  #calorii arse
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+    
+    #verificam daca s-au itnrodus date azi
+    row = cur.execute(
+        "SELECT * FROM daily_progress WHERE user_id = ? AND date = DATE('now')",
+        (user_id,)
+    ).fetchone()
+
+    #daca da, actualizam kcal arse deja
+    if row:
+        new_activity = row["activity_calories"] + activity_cal
+        cur.execute(
+            "UPDATE daily_progress SET activity_calories = ? WHERE user_id = ? AND date = DATE('now')",
+            (new_activity, user_id)
+        )
+    else:#daca nu luam goalurile generale din USERS
+        user = cur.execute(
+            "SELECT kcal_goal, water_goal, activity_goal FROM users WHERE id = ?",
+            (user_id,)
+        ).fetchone()
+
+    #si introducem un nou obiect in tabela
+        cur.execute(
+            "INSERT INTO daily_progress (user_id, date, water_consumed, kcal_consumed, activity_calories, kcal_goal, water_goal, activity_goal) "
+            "VALUES (?, DATE('now'), 0, 0, ?, ?, ?, ?)",
+            (user_id, activity_cal, user["kcal_goal"], user["water_goal"], user["activity_goal"])
+        )
+
+    conn.commit()
+    conn.close()
+    return jsonify({"message": "Activitiate introdusa cu succes"})
+
+
 
 
 if __name__ == "__main__":
