@@ -10,6 +10,18 @@ CREATE TABLE users (
     activity_goal REAL DEFAULT 60
 );
 
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    age INTEGER,
+    kcal_goal REAL DEFAULT 2000,
+    water_goal REAL DEFAULT 2,
+    activity_goal REAL DEFAULT 60
+);
+
 --TABELA MEALS
 
 CREATE TABLE meals (

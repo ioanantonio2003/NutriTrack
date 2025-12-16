@@ -1,0 +1,101 @@
+/* Background */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, #a8edea, #fed6e3);
+    font-family: 'Arial', sans-serif;
+}
+
+/* TELEFON */
+.phone-container {
+    width: 360px;
+    height: 640px;
+    background: #ffffff;
+    border-radius: 40px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    position: relative;
+    justify-content: center;
+    border: 3px solid #333; 
+}
+
+/* TITLU */
+h1 {
+    margin: 0 0 40px 0;
+    font-size: 32px;
+    color: #333;
+    text-align: center;
+}
+
+/* FORM */
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* FIELDURI */
+input {
+    width: 80%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    font-size: 16px;
+}
+
+/* BUTON */
+button {
+    width: 50%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background-color: #FF6F61;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #e6554f;
+}
+
+/* LINK */
+.register-link {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #FF6F61;
+    text-decoration: none;
+    text-align: center;
+}
+
+.register-link a {
+    color: #FF6F61;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+/* BUTON TELEFON */
+.home-button {
+    position: absolute;
+    bottom: 15px;
+    width: 50px;
+    height: 50px;
+    background: #FF6F61;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}

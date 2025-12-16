@@ -1,13 +1,38 @@
 from flask import Flask, request, jsonify
 from db import get_db_connection
 from datetime import datetime
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/")
 def home():
     return "NutriTrack backend is running"
 
+
+@app.route("/login", methods=["POST"])
+def login():
+    #preluam informatiile 
+    name = request.json.get("name")
+    password = request.json.get("password")
+
+    conn = get_db_connection()
+    user = conn.execute(
+        "SELECT * FROM users WHERE name = ? AND password = ?",
+        (name, password)
+    ).fetchone()
+    conn.close()
+
+    #daca nu exista utilizatorul in baza de date , esueaza
+    if user is None:
+        return jsonify({"error": "Email sau parola gresita!"}), 401
+
+    #daca il gasim , conectarea este cu succes
+    return jsonify({
+        "message": "Logare cu succes",
+        "user_id": user["id"]
+})
 
 #functia de inregistrare a unui user
 @app.route("/register", methods=["POST"])
@@ -324,7 +349,7 @@ def check_daily_reminder():
         # s-au introdus deja date
         return jsonify({"reminder": False})
     else:
-        # nu s-au introdus date azi
+        # nu s-au introdus date
         return jsonify({"reminder": True})
 
 
