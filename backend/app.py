@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from db import get_db_connection
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -276,8 +277,30 @@ def get_recipes():
 
     return jsonify(result)
 
+#functie pt aflarea streakului
+@app.route("/streak", methods=["GET"])
+def get_streak():
+    user_id = request.args.get("user_id")
 
+    conn = get_db_connection()
+    rows = conn.execute("""
+        SELECT date
+        FROM daily_progress
+        WHERE user_id = ?
+        ORDER BY date DESC
+    """, (user_id,)).fetchall()
+    conn.close()
 
+    streak = 0
+    today = datetime.now().date()
+
+    for row in rows:
+        day_date = datetime.strptime(row["date"], "%Y-%m-%d").date()
+        if (today - day_date).days != streak:
+            break
+        streak += 1
+
+    return jsonify({"streak": streak})
 
 
 if __name__ == "__main__":

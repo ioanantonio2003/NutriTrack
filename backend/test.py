@@ -86,16 +86,25 @@ BASE_URL = "http://127.0.0.1:5000"
 #     test_progress(7)
 #     test_progress(30)
 
-def test_get_recipes(recipe_type=None):
-    params = {}
-    if recipe_type:
-        params["type"] = recipe_type
+# def test_get_recipes(recipe_type=None):
+#     params = {}
+#     if recipe_type:
+#         params["type"] = recipe_type
 
-    response = requests.get(f"{BASE_URL}/recipes", params=params)
-    print("STATUS:", response.status_code)
-    print("DATA:", response.json())
+#     response = requests.get(f"{BASE_URL}/recipes", params=params)
+#     print("STATUS:", response.status_code)
+#     print("DATA:", response.json())
+
+# if __name__ == "__main__":
+#     test_get_recipes()    
+#     test_get_recipes("vegan")  
+#     test_get_recipes("spicy")  
+
+def test_streak(user_id):
+    url = f"{BASE_URL}/streak"
+    params = {"user_id": user_id}
+    response = requests.get(url, params=params)
+    print("STREAK:", response.status_code, response.json())
 
 if __name__ == "__main__":
-    test_get_recipes()    
-    test_get_recipes("vegan")  
-    test_get_recipes("spicy")  
+    test_streak(1) 
