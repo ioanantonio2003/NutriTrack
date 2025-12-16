@@ -31,28 +31,45 @@ BASE_URL = "http://127.0.0.1:5000"
 
 
 
-user_id = 1  #test id
+# user_id = 1  #test id
 
-def test_add_water(amount):
-    response = requests.post(f"{BASE_URL}/add_water", json={"user_id": user_id, "water": amount})
-    print("Adaugare apa:", response.status_code, response.json())
+# def test_add_water(amount):
+#     response = requests.post(f"{BASE_URL}/add_water", json={"user_id": user_id, "water": amount})
+#     print("Adaugare apa:", response.status_code, response.json())
 
-def test_add_meal(kcal):
-    response = requests.post(f"{BASE_URL}/add_meal", json={"user_id": user_id, "kcal": kcal})
-    print("Adaugare masa:", response.status_code, response.json())
+# def test_add_meal(kcal):
+#     response = requests.post(f"{BASE_URL}/add_meal", json={"user_id": user_id, "kcal": kcal})
+#     print("Adaugare masa:", response.status_code, response.json())
 
-def test_add_activity(activity_cal):
-    response = requests.post(f"{BASE_URL}/add_activity", json={"user_id": user_id, "activity_cal": activity_cal})
-    print("Adaugare activitarea", response.status_code, response.json())
+# def test_add_activity(activity_cal):
+#     response = requests.post(f"{BASE_URL}/add_activity", json={"user_id": user_id, "activity_cal": activity_cal})
+#     print("Adaugare activitarea", response.status_code, response.json())
 
+
+# if __name__ == "__main__":
+#     print("CREATE ROW")
+#     test_add_water(0.5)
+#     test_add_meal(400)
+#     test_add_activity(150)
+
+#     print("\nUPDATE")
+#     test_add_water(0.3)
+#     test_add_meal(200)
+#     test_add_activity(100)
+
+
+def test_update_goals():
+    url = f"{BASE_URL}/update_goals"
+    data = {
+        "user_id": 1,
+        "kcal_goal": 2300,
+        "water_goal": 2.5,
+        "activity_goal": 75
+    }
+
+    response = requests.post(url, json=data)
+    print("UPDATE GOALS:", response.status_code, response.json())
+    
 
 if __name__ == "__main__":
-    print("CREATE ROW")
-    test_add_water(0.5)
-    test_add_meal(400)
-    test_add_activity(150)
-
-    print("\nUPDATE")
-    test_add_water(0.3)
-    test_add_meal(200)
-    test_add_activity(100)
+    test_update_goals()

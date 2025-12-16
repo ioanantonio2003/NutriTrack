@@ -162,6 +162,43 @@ def add_activity():
     return jsonify({"message": "Activitiate introdusa cu succes"})
 
 
+#functie pentru editarea goal-urilor
+@app.route("/update_goals", methods=["POST"])
+def update_goals():
+    user_id = request.json.get("user_id")
+    kcal_goal = request.json.get("kcal_goal")
+    water_goal = request.json.get("water_goal")
+    activity_goal = request.json.get("activity_goal")
+
+    #daca lipseste un parametru nu poti schimba
+    if not all([user_id, kcal_goal, water_goal, activity_goal]):
+        return jsonify({"error": "Lipsesc date"}), 400
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    #Schimbam obiectivele generale
+    cur.execute("""
+        UPDATE users
+        SET kcal_goal = ?, water_goal = ?, activity_goal = ?
+        WHERE id = ?
+    """, (kcal_goal, water_goal, activity_goal, user_id))
+
+    #Schimbam obiectivele din daily de azi daca exista
+    cur.execute("""
+        UPDATE daily_progress
+        SET kcal_goal = ?, water_goal = ?, activity_goal = ?
+        WHERE user_id = ?
+          AND date = DATE('now')
+    """, (kcal_goal, water_goal, activity_goal, user_id))
+
+    conn.commit()
+    conn.close()
+
+    return jsonify({"message": "Goal-uri actualizate cu succes"})
+
+
+
 
 
 if __name__ == "__main__":
