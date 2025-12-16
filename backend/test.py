@@ -74,15 +74,28 @@ BASE_URL = "http://127.0.0.1:5000"
 # if __name__ == "__main__":
 #     test_update_goals()
 
-def test_progress(days):
-    response = requests.get(
-        f"{BASE_URL}/progress",
-        params={"user_id": 1, "range": days}
-    )
-    print(response.status_code)
-    print(response.json())
+# def test_progress(days):
+#     response = requests.get(
+#         f"{BASE_URL}/progress",
+#         params={"user_id": 1, "range": days}
+#     )
+#     print(response.status_code)
+#     print(response.json())
+
+# if __name__ == "__main__":
+#     test_progress(7)
+#     test_progress(30)
+
+def test_get_recipes(recipe_type=None):
+    params = {}
+    if recipe_type:
+        params["type"] = recipe_type
+
+    response = requests.get(f"{BASE_URL}/recipes", params=params)
+    print("STATUS:", response.status_code)
+    print("DATA:", response.json())
 
 if __name__ == "__main__":
-    test_progress(7)
-    test_progress(30)
-
+    test_get_recipes()    
+    test_get_recipes("vegan")  
+    test_get_recipes("spicy")  

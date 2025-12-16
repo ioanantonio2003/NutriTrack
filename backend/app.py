@@ -247,6 +247,36 @@ def get_progress():
 
     return jsonify(result)
 
+#functie pentru colectarea retetelor
+@app.route("/recipes", methods=["GET"])
+def get_recipes():
+    recipe_type = request.args.get("type")  #type daca exista
+
+    conn = get_db_connection()
+
+    #daca exista un type , filtram doar acele retete
+    if recipe_type:  
+        rows = conn.execute(
+            "SELECT * FROM recipes WHERE type = ?", (recipe_type,)
+        ).fetchall()
+    else:#daca nu , le lua, pe toate
+        rows = conn.execute("SELECT * FROM recipes").fetchall()
+
+    conn.close()
+
+    result = []
+    for row in rows:
+        result.append({
+            "id": row["id"],
+            "title": row["title"],
+            "description": row["description"],
+            "calories": row["calories"],
+            "type": row["type"]
+        })
+
+    return jsonify(result)
+
+
 
 
 

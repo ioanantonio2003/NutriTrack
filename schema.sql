@@ -48,3 +48,12 @@ INSERT INTO users (name, password, age)
 VALUES ('Test User', '1234', 25);
 
 select*from users
+
+ALTER TABLE recipes
+ADD COLUMN type TEXT;
+
+INSERT INTO recipes (title, description, calories, type)
+VALUES 
+('Vegan Salad', 'A healthy mix of vegetables and tofu.', 250, 'vegan'),
+('Spicy Chili', 'Hot chili with beans and spices.', 450, 'spicy');
+
