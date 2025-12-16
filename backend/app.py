@@ -283,6 +283,8 @@ def get_streak():
     user_id = request.args.get("user_id")
 
     conn = get_db_connection()
+
+    #luam toate datele existente
     rows = conn.execute("""
         SELECT date
         FROM daily_progress
@@ -294,6 +296,7 @@ def get_streak():
     streak = 0
     today = datetime.now().date()
 
+    #verificam cate sunt la rand
     for row in rows:
         day_date = datetime.strptime(row["date"], "%Y-%m-%d").date()
         if (today - day_date).days != streak:
@@ -301,6 +304,28 @@ def get_streak():
         streak += 1
 
     return jsonify({"streak": streak})
+
+
+#functie pentru a verifica daca exista date introduse in ziua respectiva
+@app.route("/reminder", methods=["GET"])
+def check_daily_reminder():
+    user_id = request.args.get("user_id")
+
+    
+    conn = get_db_connection()
+    row = conn.execute("""
+        SELECT *
+        FROM daily_progress
+        WHERE user_id = ? AND date = ?
+    """, (user_id, datetime.now().strftime("%Y-%m-%d"))).fetchone()
+    conn.close()
+
+    if row:
+        # s-au introdus deja date
+        return jsonify({"reminder": False})
+    else:
+        # nu s-au introdus date azi
+        return jsonify({"reminder": True})
 
 
 if __name__ == "__main__":

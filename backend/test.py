@@ -100,11 +100,21 @@ BASE_URL = "http://127.0.0.1:5000"
 #     test_get_recipes("vegan")  
 #     test_get_recipes("spicy")  
 
-def test_streak(user_id):
-    url = f"{BASE_URL}/streak"
+# def test_streak(user_id):
+#     url = f"{BASE_URL}/streak"
+#     params = {"user_id": user_id}
+#     response = requests.get(url, params=params)
+#     print("STREAK:", response.status_code, response.json())
+
+# if __name__ == "__main__":
+#     test_streak(1) 
+
+
+def test_reminder(user_id):
+    url = f"{BASE_URL}/reminder"
     params = {"user_id": user_id}
     response = requests.get(url, params=params)
-    print("STREAK:", response.status_code, response.json())
+    print("REMINDER RESPONSE:", response.status_code, response.json())
 
 if __name__ == "__main__":
-    test_streak(1) 
+    test_reminder(2)
