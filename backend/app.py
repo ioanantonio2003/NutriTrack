@@ -198,6 +198,55 @@ def update_goals():
     return jsonify({"message": "Goal-uri actualizate cu succes"})
 
 
+#functia pentru aflarea progresului
+@app.route("/progress", methods=["GET"])
+def get_progress():
+    user_id = request.args.get("user_id")
+    days = int(request.args.get("range", 7))
+
+    #luam toate datele in functie de range ul trimis
+    conn = get_db_connection()
+    rows = conn.execute("""
+        SELECT *
+        FROM daily_progress
+        WHERE user_id = ?
+        ORDER BY date DESC
+        LIMIT ?
+    """, (user_id, days)).fetchall()
+    conn.close()
+
+    result = []
+
+    #luam fiecare linie si verificam daca obiectivul a fost atins
+    for row in rows:
+        kcal_ok = row["kcal_consumed"] <= row["kcal_goal"]
+        water_ok = row["water_consumed"] >= row["water_goal"]
+        activity_ok = row["activity_calories"] >= row["activity_goal"]
+
+        day_ok = kcal_ok and water_ok and activity_ok
+
+        result.append({
+            "date": row["date"],
+            "kcal": {
+                "value": row["kcal_consumed"],
+                "goal": row["kcal_goal"],
+                "ok": kcal_ok
+            },
+            "water": {
+                "value": row["water_consumed"],
+                "goal": row["water_goal"],
+                "ok": water_ok
+            },
+            "activity": {
+                "value": row["activity_calories"],
+                "goal": row["activity_goal"],
+                "ok": activity_ok
+            },
+            "day_ok": day_ok
+        })
+
+    return jsonify(result)
+
 
 
 

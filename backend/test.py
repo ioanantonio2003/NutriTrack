@@ -58,18 +58,31 @@ BASE_URL = "http://127.0.0.1:5000"
 #     test_add_activity(100)
 
 
-def test_update_goals():
-    url = f"{BASE_URL}/update_goals"
-    data = {
-        "user_id": 1,
-        "kcal_goal": 2300,
-        "water_goal": 2.5,
-        "activity_goal": 75
-    }
+# def test_update_goals():
+#     url = f"{BASE_URL}/update_goals"
+#     data = {
+#         "user_id": 1,
+#         "kcal_goal": 2300,
+#         "water_goal": 2.5,
+#         "activity_goal": 75
+#     }
 
-    response = requests.post(url, json=data)
-    print("UPDATE GOALS:", response.status_code, response.json())
-    
+#     response = requests.post(url, json=data)
+#     print("UPDATE GOALS:", response.status_code, response.json())
+
+
+# if __name__ == "__main__":
+#     test_update_goals()
+
+def test_progress(days):
+    response = requests.get(
+        f"{BASE_URL}/progress",
+        params={"user_id": 1, "range": days}
+    )
+    print(response.status_code)
+    print(response.json())
 
 if __name__ == "__main__":
-    test_update_goals()
+    test_progress(7)
+    test_progress(30)
+
