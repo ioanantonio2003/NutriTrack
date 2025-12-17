@@ -204,10 +204,10 @@ button:hover {
     font-size: 14px;
 }
 
-
+/* PANOU MANCARE */
 .add-meal-card {
     margin-top: 15px;
-    background: #f0f8ff;        /* culoare deschisă, să se potrivească cu alb */
+    background: #f0f8ff;     
     border-radius: 15px;
     padding: 15px;
     margin: 10px 0;
@@ -229,7 +229,7 @@ button:hover {
     font-size: 14px;
     border-radius: 8px;
     border: none;
-    background-color: #FF6F61; /* aceeași culoare ca la celelalte butoane */
+    background-color: #FF6F61;
     color: white;
     cursor: pointer;
 }
@@ -238,9 +238,7 @@ button:hover {
     background-color: #ff8576;
 }
 
-
-
-
+/* PANOU SUGESTII */
 .suggestions-list {
     list-style: none;
     margin: 0;
