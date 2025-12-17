@@ -160,6 +160,17 @@ addActivityBtn.addEventListener("click", async () => {
     }
 });
 
+
+ const addMealBtn = document.getElementById("showMealFormBtn");
+
+    if (addMealBtn) {
+        addMealBtn.addEventListener("click", () => {
+            // Redirecționăm către pagina add_meal.html
+            window.location.href = "add_meal.html";
+        });
+    }
+
+
     //LA INCARCAREA PAGINII
     loadStreak();
     loadGoals();

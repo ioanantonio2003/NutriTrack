@@ -107,45 +107,6 @@ def add_water():
     conn.close()
     return jsonify({"message": "Apa introdusa cu succes"})
 
-#functia pentru adaugarea mesei
-@app.route("/add_meal", methods=["POST"])
-def add_meal():
-    data = request.json
-    user_id = data.get("user_id")
-    kcal = data.get("kcal")  # kcal mancate
-
-    conn = get_db_connection()
-    cur = conn.cursor()
-
-    #verificam daca s-au introdus date azi
-    row = cur.execute(
-        "SELECT * FROM daily_progress WHERE user_id = ? AND date = DATE('now')",
-        (user_id,)
-    ).fetchone()
-
-    #daca da , doar acutalizam numarul de calorii consumate
-    if row:
-        new_kcal = row["kcal_consumed"] + kcal
-        cur.execute(
-            "UPDATE daily_progress SET kcal_consumed = ? WHERE user_id = ? AND date = DATE('now')",
-            (new_kcal, user_id)
-        )
-    else:#aca nu , luam goalurile generale din USERS
-        user = cur.execute(
-            "SELECT kcal_goal, water_goal, activity_goal FROM users WHERE id = ?",
-            (user_id,)
-        ).fetchone()
-
-        #si introducem un nou obiect in tabela 
-        cur.execute(
-            "INSERT INTO daily_progress (user_id, date, water_consumed, kcal_consumed, activity_calories, kcal_goal, water_goal, activity_goal) "
-            "VALUES (?, DATE('now'), 0, ?, 0, ?, ?, ?)",
-            (user_id, kcal, user["kcal_goal"], user["water_goal"], user["activity_goal"])
-        )
-
-    conn.commit()
-    conn.close()
-    return jsonify({"message": "Masa introdusa cu succes"})
 
 #functie adaugare de activitate
 @app.route("/add_activity", methods=["POST"])
@@ -384,6 +345,57 @@ def get_goals():
         "water_goal": user["water_goal"],
         "activity_goal": user["activity_goal"]
     })
+
+#functie pentru preluarea tuturor akimentelor
+@app.route("/meals", methods=["GET"])
+def get_meals():
+    conn = get_db_connection()
+    rows = conn.execute("SELECT name, kcal_per_100g FROM meals").fetchall()
+    conn.close()
+    meals = [{"name": row["name"], "kcal_per_100g": row["kcal_per_100g"]} for row in rows]
+    return jsonify({"meals": meals})
+
+
+#functie pentru adaugarea unei mese 
+@app.route("/add_meal", methods=["POST"])
+def add_meal():
+    data = request.json
+    user_id = data.get("user_id")
+    meal_name = data.get("name")
+    amount = float(data.get("amount", 0)) #gramele de mancarea
+
+    conn = get_db_connection()
+    meal = conn.execute("SELECT kcal_per_100g FROM meals WHERE name = ?", (meal_name,)).fetchone()
+    if not meal:
+        conn.close()
+        return jsonify({"error": "Aliment inexistent"}), 404
+
+    kcal_added = (meal["kcal_per_100g"] * amount) / 100
+
+    # Verificam daca s a introdus azi vreo data
+    today = datetime.now().strftime("%Y-%m-%d")
+    existing = conn.execute(
+        "SELECT * FROM daily_progress WHERE user_id = ? AND date = ?",
+        (user_id, today)
+    ).fetchone()
+
+    if existing:
+        #daca da actualizam kcal consumate
+        conn.execute(
+            "UPDATE daily_progress SET kcal_consumed = kcal_consumed + ? WHERE user_id = ? AND date = ?",
+            (kcal_added, user_id, today)
+        )
+    else:
+        # daca nu creem un nou obiect
+        conn.execute(
+            "INSERT INTO daily_progress (user_id, date, kcal_consumed, water_consumed, activity_calories) VALUES (?, ?, ?, 0, 0)",
+            (user_id, today, kcal_added)
+        )
+
+    conn.commit()
+    conn.close()
+    return jsonify({"message": "Masa adaugata cu succes"})
+
 
 
 if __name__ == "__main__":

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriTrack - Adaugă masă</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="phone-container">
+        <h1>🍽️ Adauga masa</h1>
+
+        <form id="addMealForm">
+            <input type="text" id="meal-search" placeholder="Cauta aliment...">
+            <ul id="meal-suggestions" class="suggestions-list"></ul>
+
+            <input type="number" id="meal-amount" placeholder="Cantitate (g)" step="1">
+
+            <button type="submit">Adaugă masă</button>
+        </form>
+
+        <div class="home-button" onclick="window.location.href='main.html'"></div>
+    </div>
+
+    <script src="add_meal.js"></script>
+</body>
+</html>

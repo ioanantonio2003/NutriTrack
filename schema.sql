@@ -27,9 +27,9 @@ CREATE TABLE users (
 CREATE TABLE meals (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    description TEXT,
-    calories_per_100g REAL NOT NULL
+    kcal_per_100g REAL NOT NULL
 );
+DROP TABLE IF EXISTS meals;
 
 --TABELA RECIPES
 
@@ -71,3 +71,7 @@ INSERT INTO recipes (title, description, calories, type)
 VALUES 
 ('Vegan Salad', 'A healthy mix of vegetables and tofu.', 250, 'vegan'),
 ('Spicy Chili', 'Hot chili with beans and spices.', 450, 'spicy');
+
+
+INSERT INTO MEALS (name,kcal_per_100g) VALUES('pui', 50);
+INSERT INTO MEALS (name,kcal_per_100g) VALUES('piure', 150);

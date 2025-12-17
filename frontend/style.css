@@ -28,7 +28,7 @@ body {
 
 /* TITLU */
 h1 {
-    margin: 0 0 40px 0;
+    margin: 0 0 20px 0;
     font-size: 32px;
     color: #333;
     text-align: center;
@@ -91,13 +91,13 @@ button:hover {
 .home-button {
     position: absolute;
     bottom: 15px;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     background: #FF6F61;
     border-radius: 50%;
     border: none;
     cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.7);
 }
 
 
@@ -105,6 +105,7 @@ button:hover {
 
 .progress-card {
     margin-top: 12px;
+    margin-bottom: 15px;
     padding: 10px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
@@ -134,8 +135,8 @@ button:hover {
 
 /*PANOU PENTRU APA */
 #water-panel {
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     padding: 10px;
     border-radius: 12px;
     background-color: #f0f8ff;
@@ -201,4 +202,61 @@ button:hover {
     flex: 1;
     padding: 8px;
     font-size: 14px;
+}
+
+
+.add-meal-card {
+    margin-top: 15px;
+    background: #f0f8ff;        /* culoare deschisă, să se potrivească cu alb */
+    border-radius: 15px;
+    padding: 15px;
+    margin: 10px 0;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.7);
+}
+
+.add-meal-card h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.add-meal-card button {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: none;
+    background-color: #FF6F61; /* aceeași culoare ca la celelalte butoane */
+    color: white;
+    cursor: pointer;
+}
+
+.add-meal-card button:hover {
+    background-color: #ff8576;
+}
+
+
+
+
+.suggestions-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 120px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.suggestions-list li {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.suggestions-list li:hover {
+    background-color: #f0f0f0;
 }
