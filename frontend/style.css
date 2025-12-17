@@ -21,6 +21,7 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 40px 20px;
+    padding-top: 10px;
     position: relative;
     justify-content: center;
     border: 3px solid #333; 
@@ -90,9 +91,9 @@ button:hover {
 /* BUTON TELEFON */
 .home-button {
     position: absolute;
-    bottom: 15px;
-    width: 40px;
-    height: 40px;
+    bottom: 2px;
+    width: 35px;
+    height: 35px;
     background: #FF6F61;
     border-radius: 50%;
     border: none;
@@ -257,4 +258,20 @@ button:hover {
 
 .suggestions-list li:hover {
     background-color: #f0f0f0;
+}
+
+/* Pt mini butoane */
+.mini-button {
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 5px;
+    border: 1px solid #333;
+    background-color: #FF6F61;
+    color: white;
+    cursor: pointer;
+    margin: 2px;
+}
+
+.mini-button:hover {
+    background-color: #ff867c;
 }
