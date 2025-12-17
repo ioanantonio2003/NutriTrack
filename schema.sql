@@ -55,6 +55,9 @@ CREATE TABLE daily_progress (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+INSERT INTO daily_progress(user_id,date,kcal_consumed,water_consumed,activity_calories,kcal_goal,water_goal,activity_goal)
+        VALUES(1,'2025-12-17',1,2,3,2300,2,60)
+
 --TEST
 INSERT INTO users (name, password, age)
 VALUES ('Test User', '1234', 25);
@@ -68,4 +71,3 @@ INSERT INTO recipes (title, description, calories, type)
 VALUES 
 ('Vegan Salad', 'A healthy mix of vegetables and tofu.', 250, 'vegan'),
 ('Spicy Chili', 'Hot chili with beans and spices.', 450, 'spicy');
-

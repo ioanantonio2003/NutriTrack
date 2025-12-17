@@ -110,11 +110,28 @@ BASE_URL = "http://127.0.0.1:5000"
 #     test_streak(1) 
 
 
-def test_reminder(user_id):
-    url = f"{BASE_URL}/reminder"
-    params = {"user_id": user_id}
-    response = requests.get(url, params=params)
-    print("REMINDER RESPONSE:", response.status_code, response.json())
+# def test_reminder(user_id):
+#     url = f"{BASE_URL}/reminder"
+#     params = {"user_id": user_id}
+#     response = requests.get(url, params=params)
+#     print("REMINDER RESPONSE:", response.status_code, response.json())
+
+# if __name__ == "__main__":
+#     test_reminder(2)
+
+
+def test_get_goals(user_id):
+    try:
+        response = requests.get(f"{BASE_URL}/goals", params={"user_id": user_id})
+        print("Status code:", response.status_code)
+        try:
+            data = response.json()
+            print("SON:", data)
+        except Exception as e:
+            print("Eroare ", e)
+            print(":", response.text)
+    except Exception as e:
+        print("Eroare la request:", e)
 
 if __name__ == "__main__":
-    test_reminder(2)
+    test_get_goals(1)

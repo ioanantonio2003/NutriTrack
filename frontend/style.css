@@ -99,3 +99,106 @@ button:hover {
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
+
+
+/* PANEL PRINCIPAL */
+
+.progress-card {
+    margin-top: 12px;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 12px;
+    width: 90%;
+}
+.progress-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 8px;
+    border-radius: 8px;
+}
+.progress-item .label {
+    font-weight: 600;
+}
+.progress-item .value {
+    font-weight: 500;
+}
+.progress-item.calories { background: #9a7575; color: #ffb3b3; }
+.progress-item.water { background: #1f2a2f; color: #9fdcff; }
+.progress-item.activity { background: #81aa81; color: #a8f0b0; }
+
+
+
+/*PANOU PENTRU APA */
+#water-panel {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 12px;
+    background-color: #f0f8ff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+}
+#water-panel h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+#water-panel input {
+    width: 90%;
+    padding: 8px;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+#water-panel button {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+
+/* PANOU SPORT */
+#activity-panel {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 12px;
+    background-color: #f0f8ff; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+}
+#activity-panel h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+#activity-panel select,
+#activity-panel input {
+    width: 90%;
+    padding: 8px;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+#activity-panel button {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+}
+#activity-panel .activity-inputs {
+    display: flex;
+    gap: 10px;
+    width: 60%;
+    margin-bottom: 5px;
+}
+#activity-panel select,
+#activity-panel input {
+    flex: 1;
+    padding: 8px;
+    font-size: 14px;
+}

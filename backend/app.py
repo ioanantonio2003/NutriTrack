@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from db import get_db_connection
-from datetime import datetime
+from datetime import datetime,timedelta
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -302,30 +302,41 @@ def get_recipes():
 
     return jsonify(result)
 
-#functie pt aflarea streakului
+
+#functie pentru streak incepand din ziua de ieri
 @app.route("/streak", methods=["GET"])
 def get_streak():
     user_id = request.args.get("user_id")
 
     conn = get_db_connection()
 
-    #luam toate datele existente
     rows = conn.execute("""
         SELECT date
         FROM daily_progress
         WHERE user_id = ?
         ORDER BY date DESC
     """, (user_id,)).fetchall()
+
     conn.close()
 
-    streak = 0
-    today = datetime.now().date()
+    dates = [
+        datetime.strptime(row["date"], "%Y-%m-%d").date()
+        for row in rows
+    ]
 
-    #verificam cate sunt la rand
-    for row in rows:
-        day_date = datetime.strptime(row["date"], "%Y-%m-%d").date()
-        if (today - day_date).days != streak:
-            break
+    today = datetime.now().date()
+    yesterday = today - timedelta(days=1)
+
+    streak = 0
+    current_day = yesterday
+
+    # clcularea streakului incepand de ieri
+    while current_day in dates:
+        streak += 1
+        current_day -= timedelta(days=1)
+
+    # daca s a introdus azi adaugam si ziua de azi
+    if today in dates:
         streak += 1
 
     return jsonify({"streak": streak})
@@ -351,7 +362,30 @@ def check_daily_reminder():
     else:
         # nu s-au introdus date
         return jsonify({"reminder": True})
+    
+#functie pt preluarea goal urilor generale
+@app.route("/goals", methods=["GET"])
+def get_goals():
+    user_id = request.args.get("user_id") 
+
+
+    conn = get_db_connection()
+    user = conn.execute(
+        "SELECT kcal_goal, water_goal, activity_goal FROM users WHERE id = ?",
+        (user_id,)
+    ).fetchone()
+    conn.close()
+
+    if user is None:
+        return jsonify({"error": "EROARE"}), 404
+
+    return jsonify({
+        "kcal_goal": user["kcal_goal"],
+        "water_goal": user["water_goal"],
+        "activity_goal": user["activity_goal"]
+    })
 
 
 if __name__ == "__main__":
     app.run(debug=True)
+

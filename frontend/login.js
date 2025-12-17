@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             //daca avem un raspuns ok redirectionam utilizatorul la pagina principala
             if (response.ok) {
+                localStorage.setItem("user_id", data.user_id); // salvam id
                 window.location.href = "main.html";
             } else {
                 alert(data.error); //mesajul de aroare

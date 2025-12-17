@@ -2,9 +2,63 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <title>Main</title>
+    <title>NutriTrack - Main</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Salut!</h1>
+
+<div class="phone-container">
+
+    <p id="streak-text">
+        🔥 Streak: ...
+    </p>
+
+    
+    <div class="progress-card">
+        <div class="progress-item calories">
+            <span class="label">🔥 Calorii</span>
+            <span class="value"><span id="kcal-current">0</span>/<span id="kcal-goal">2000</span></span>
+        </div>
+
+        <div class="progress-item water">
+            <span class="label">💧 Apă</span>
+            <span class="value"><span id="water-current">0</span>/<span id="water-goal">2000</span></span>
+        </div>
+
+        <div class="progress-item activity">
+            <span class="label">🏃 Sport</span>
+            <span class="value"><span id="sport-current">0</span>/<span id="sport-goal">500</span></span>
+        </div>
+    </div>
+
+
+    <div id="water-panel">
+        <h3>💧 Adaugă apă</h3>
+        <input type="number" id="waterAmount" placeholder="Litri (ex: 0.5)" step="0.1">
+        <button id="addWaterBtn">Adaugă apă</button>
+    </div>
+
+    <div id="activity-panel">
+    <h3>🏃‍♂️ Adaugă sport</h3>
+    <div class="activity-inputs">
+        <select id="activityType">
+            <option value="mers">Mers</option>
+            <option value="alergat">Alergat</option>
+            <option value="inot">Înot</option>
+            <option value="ciclism">Ciclism</option>
+            <option value="fotbal">Fotbal</option>
+            <option value="dans">Dans</option>
+            <option value="sala">Sală</option>
+        </select>
+        <input type="number" id="activityMinutes" placeholder="Minute" min="1">
+    </div>
+    <button id="addActivityBtn">Adaugă activitate</button>
+    </div>
+
+
+    <div class="home-button"></div>
+</div>
+
+<script src="main.js"></script>
 </body>
 </html>
