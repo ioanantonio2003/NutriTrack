@@ -59,6 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (response.ok && data.length > 0) {
                 const todayData = data[0]; //luam doar progresul de astazi
+                const today = new Date().toISOString().split("T")[0];
+                
                 //updatam
                 document.getElementById("kcal-current").textContent = todayData.kcal.value;
                 document.getElementById("water-current").textContent = todayData.water.value;
@@ -162,13 +164,21 @@ addActivityBtn.addEventListener("click", async () => {
 
 
  const addMealBtn = document.getElementById("showMealFormBtn");
-
+//functie pt adaugare de masa
     if (addMealBtn) {
         addMealBtn.addEventListener("click", () => {
-            // Redirecționăm către pagina add_meal.html
+
             window.location.href = "add_meal.html";
         });
     }
+
+    //functie pt schimbare de goaluri
+document.getElementById("changeGoalsBtn").addEventListener("click", () => {
+    window.location.href = "goals.html";
+});
+
+
+
 
 
     //LA INCARCAREA PAGINII
