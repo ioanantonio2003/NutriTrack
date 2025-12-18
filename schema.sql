@@ -75,3 +75,16 @@ VALUES
 
 INSERT INTO MEALS (name,kcal_per_100g) VALUES('pui', 50);
 INSERT INTO MEALS (name,kcal_per_100g) VALUES('piure', 150);
+
+
+
+INSERT INTO recipes (title, description, calories, type) VALUES
+('Spicy Chili Chicken', 'A fiery chicken chili with peppers and beans', 450, 'spicy'),
+('Protein Pancakes', 'Fluffy pancakes made with protein powder and oats', 300, 'protein'),
+('Spicy Tofu Stir-Fry', 'Tofu and vegetables cooked in a spicy sauce', 400, 'spicy'),
+('Vegan Lentil Soup', 'Comforting lentil soup with herbs and spices', 250, 'vegan'),
+('Protein Smoothie', 'A smoothie with banana, peanut butter, and whey protein', 200, 'protein'),
+('Spicy Shrimp Tacos', 'Tacos filled with spicy marinated shrimp and slaw', 420, 'spicy'),
+('Vegan Avocado Toast', 'Whole grain toast topped with smashed avocado and seeds', 280, 'vegan'),
+('Protein Chicken Salad', 'Grilled chicken with mixed greens and protein-rich dressing', 350, 'protein'),
+('Spicy Veggie Curry', 'A hot curry with seasonal vegetables and coconut milk', 380, 'spicy');

@@ -178,6 +178,10 @@ document.getElementById("changeGoalsBtn").addEventListener("click", () => {
 });
 
 
+document.getElementById("recipesBtn").addEventListener("click", () => {
+    window.location.href = "recipes.html";
+});
+
 
 
 
