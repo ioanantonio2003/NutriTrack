@@ -49,31 +49,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     //functie pt updatarea panelului prinicpal 
-    async function updateProgressPanel() {
-        const userId = localStorage.getItem("user_id");
-        if (!userId) return;
+   async function updateProgressPanel() {
+    const userId = localStorage.getItem("user_id");
+    if (!userId) return;
 
-        try {
-            const response = await fetch(`http://127.0.0.1:5000/progress?user_id=${userId}&range=1`);
-            const data = await response.json();
+    try {
+        const response = await fetch(`http://127.0.0.1:5000/progress?user_id=${userId}&range=1`);
+        const data = await response.json();
 
-            if (response.ok && data.length > 0) {
-                const todayData = data[0]; //luam doar progresul de astazi
-                const today = new Date().toISOString().split("T")[0];
-                
-                //updatam
-                document.getElementById("kcal-current").textContent = todayData.kcal.value;
-                document.getElementById("water-current").textContent = todayData.water.value;
-                document.getElementById("sport-current").textContent = todayData.activity.value;
-            } else {
-                //daca azi nu s a facut nicio data
-                document.getElementById("kcal-current").textContent = 0;
-                document.getElementById("water-current").textContent = 0;
-                document.getElementById("sport-current").textContent = 0;
-            }
-        } catch (error) {
-            console.error("Eroare:", error);
+        const today = new Date().toISOString().split("T")[0]; // "YYYY-MM-DD"
+
+        if (response.ok && data.length > 0 && data[0].date === today) {
+            const todayData = data[0];
+
+            document.getElementById("kcal-current").textContent = todayData.kcal.value;
+            document.getElementById("water-current").textContent = todayData.water.value;
+            document.getElementById("sport-current").textContent = todayData.activity.value;
+        } else {
+            //daca nu exista date azi setam direct 0
+            document.getElementById("kcal-current").textContent = 0;
+            document.getElementById("water-current").textContent = 0;
+            document.getElementById("sport-current").textContent = 0;
+
+            alert("Nu ai introdus incă datele pentru azi. Te rugam sa adaugi apa, sportul și mesele!");
         }
+    } catch (error) {
+        console.error("Eroare:", error);
+    }
 }
 
 

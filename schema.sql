@@ -107,3 +107,62 @@ VALUES
 (2, '2025-12-09', 1800, 1.6, 200, 2300, 2, 60),
 (2, '2025-12-08', 1750, 1.5, 180, 2300, 2, 60),
 (2, '2025-12-07', 1900, 1.8, 210, 2300, 2, 60);
+
+
+DELETE FROM recipes;
+
+
+INSERT INTO recipes (title, description, calories, type) VALUES
+('Supă picantă de legume', 'Fierbe legumele și adaugă condimente picante', 150, 'spicy'),
+('Salată vegană cu quinoa', 'Amestecă quinoa cu legume proaspete și dressing', 200, 'vegan'),
+('Piept de pui la grătar', 'Gătește pieptul de pui pe grătar', 250, 'protein'),
+('Chili con carne', 'Fierbe carnea cu fasole și condimente picante', 300, 'spicy'),
+('Smoothie verde vegan', 'Mixează spanac, banană și lapte vegetal', 180, 'vegan'),
+('Ouă fierte cu avocado', 'Fierbe ouăle și servește cu avocado', 220, 'protein'),
+('Tocăniță picantă de linte', 'Fierbe lintea cu legume și condimente', 210, 'spicy'),
+('Paste cu legume vegan', 'Fierbe pastele și amestecă cu legume', 230, 'vegan'),
+('Somon la cuptor', 'Coace somonul cu lămâie și ierburi', 280, 'protein'),
+('Ardei umpluți picant', 'Umple ardeii cu orez și condimente', 240, 'spicy');
+
+
+INSERT INTO MEALS (name, kcal_per_100g) VALUES
+('ceafa', 290),
+('paste', 350),
+('orez', 130),
+('fasole', 340),
+('mazare', 80),
+('morcovi', 41),
+('cartofi', 77),
+('rosii', 18),
+('castraveti', 16),
+('spanac', 23),
+('broccoli', 34),
+('varza', 25),
+('ardei', 31),
+('ceapa', 40),
+('usturoi', 149),
+('salata', 15),
+('vinete', 25),
+('ciuperci', 22),
+('avocado', 160),
+('nuci', 650),
+('migdale', 575),
+('seminte', 580),
+('lapte', 60),
+('branza', 350),
+('iaurt', 60),
+('oua', 155),
+('somon', 208),
+('ton', 132),
+('carne', 250),
+('vita', 250),
+('porc', 290),
+('curcan', 135),
+('cereale', 370),
+('miere', 304),
+('ciocolata', 546),
+('marmelada', 250),
+('pâine', 265),
+('covrigi', 340),
+('ovaz', 389),
+('quinoa', 120);
