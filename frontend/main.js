@@ -182,7 +182,9 @@ document.getElementById("recipesBtn").addEventListener("click", () => {
     window.location.href = "recipes.html";
 });
 
-
+document.getElementById("progressBtn").addEventListener("click", () => {
+    window.location.href = "progress.html";
+});
 
 
     //LA INCARCAREA PAGINII

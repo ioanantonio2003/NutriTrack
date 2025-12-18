@@ -58,6 +58,10 @@ CREATE TABLE daily_progress (
 INSERT INTO daily_progress(user_id,date,kcal_consumed,water_consumed,activity_calories,kcal_goal,water_goal,activity_goal)
         VALUES(1,'2025-12-17',1,2,3,2300,2,60)
 
+
+INSERT INTO daily_progress(user_id,date,kcal_consumed,water_consumed,activity_calories,kcal_goal,water_goal,activity_goal)
+        VALUES(2,'2025-12-17',1,2,3,2300,2,60)
+
 --TEST
 INSERT INTO users (name, password, age)
 VALUES ('Test User', '1234', 25);
@@ -88,3 +92,18 @@ INSERT INTO recipes (title, description, calories, type) VALUES
 ('Vegan Avocado Toast', 'Whole grain toast topped with smashed avocado and seeds', 280, 'vegan'),
 ('Protein Chicken Salad', 'Grilled chicken with mixed greens and protein-rich dressing', 350, 'protein'),
 ('Spicy Veggie Curry', 'A hot curry with seasonal vegetables and coconut milk', 380, 'spicy');
+
+
+
+INSERT INTO daily_progress(user_id, date, kcal_consumed, water_consumed, activity_calories, kcal_goal, water_goal, activity_goal)
+VALUES
+(2, '2025-12-16', 1800, 1.5, 200, 2300, 2, 60),
+(2, '2025-12-15', 1750, 1.8, 250, 2300, 2, 60),
+(2, '2025-12-14', 1900, 2, 180, 2300, 2, 60),
+(2, '2025-12-13', 2000, 2.2, 220, 2300, 2, 60),
+(2, '2025-12-12', 1850, 1.9, 210, 2300, 2, 60),
+(2, '2025-12-11', 1700, 1.7, 190, 2300, 2, 60),
+(2, '2025-12-10', 1950, 2.1, 230, 2300, 2, 60),
+(2, '2025-12-09', 1800, 1.6, 200, 2300, 2, 60),
+(2, '2025-12-08', 1750, 1.5, 180, 2300, 2, 60),
+(2, '2025-12-07', 1900, 1.8, 210, 2300, 2, 60);

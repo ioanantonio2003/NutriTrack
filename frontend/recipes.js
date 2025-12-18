@@ -35,6 +35,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
+    document.getElementById("backHomeBtn").addEventListener("click", () => {
+    window.location.href = "main.html";
+});
+
     //initial pe toate
     loadRecipes();
 
